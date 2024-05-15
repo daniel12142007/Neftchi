@@ -9,5 +9,4 @@ public class NeftchiApplication {
     public static void main(String[] args) {
         SpringApplication.run(NeftchiApplication.class, args);
     }
-
 }
