@@ -1,14 +1,12 @@
 package com.example.neftchi.model;
 
+import com.example.neftchi.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -23,5 +21,6 @@ public class Partners {
     private String category;
     private String link;
     private String image;
-    private String language;
+    @Enumerated(EnumType.STRING)
+    private Language language;
 }
