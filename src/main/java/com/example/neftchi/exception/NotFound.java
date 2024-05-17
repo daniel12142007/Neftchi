@@ -1,7 +1,7 @@
 package com.example.neftchi.exception;
 
-public class NotFound extends Error{
+public class NotFound extends RuntimeException{
     public NotFound() {
-        throw new Error("Not found");
+        throw new RuntimeException("Not found");
     }
 }
