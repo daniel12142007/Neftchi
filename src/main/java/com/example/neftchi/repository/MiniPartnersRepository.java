@@ -33,6 +33,7 @@ public interface MiniPartnersRepository extends JpaRepository<MiniPartners, Long
             m.pdf
             )
             from MiniPartners m
+            order by m.id
             """)
     List<MiniPartnersResponse>findAllMiniPartnersResponse();
 }
