@@ -3,6 +3,7 @@ package com.example.neftchi.service;
 import com.example.neftchi.dto.response.MenuPageResponse;
 import com.example.neftchi.dto.response.SystemMessage;
 import com.example.neftchi.model.MenuPage;
+import com.example.neftchi.model.enums.Language;
 import com.example.neftchi.repository.MenuPageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,43 +14,57 @@ import org.springframework.stereotype.Service;
 public class MenuPageService {
     private final MenuPageRepository menuPageRepository;
 
-    public MenuPageResponse find() {
-        return map(menuPageRepository.find());
+    public MenuPageResponse find(Language language) {
+        try {
+            return map(menuPageRepository.find(language));
+        } catch (Exception e) {
+            return new MenuPageResponse(0L,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+        }
     }
 
-    public MenuPageResponse updateTitle(String title) {
-        MenuPage menuPage = menuPageRepository.find();
+    public MenuPageResponse updateTitle(String title,
+                                        Language language) {
+        MenuPage menuPage = menuPageRepository.find(language);
         menuPage.setTitle(title);
         return map(menuPageRepository.save(menuPage));
     }
 
-    public MenuPageResponse updateDescription(String description) {
-        MenuPage menuPage = menuPageRepository.find();
+    public MenuPageResponse updateDescription(String description,
+                                              Language language) {
+        MenuPage menuPage = menuPageRepository.find(language);
         menuPage.setDescription(description);
         return map(menuPageRepository.save(menuPage));
     }
 
-    public MenuPageResponse updateAbout(String about) {
-        MenuPage menuPage = menuPageRepository.find();
+    public MenuPageResponse updateAbout(String about,
+                                        Language language) {
+        MenuPage menuPage = menuPageRepository.find(language);
         menuPage.setAbout(about);
         return map(menuPageRepository.save(menuPage));
     }
 
-    public MenuPageResponse updateAboutDescription(String aboutDescription) {
-        MenuPage menuPage = menuPageRepository.find();
+    public MenuPageResponse updateAboutDescription(String aboutDescription,
+                                                   Language language) {
+        MenuPage menuPage = menuPageRepository.find(language);
         menuPage.setAboutDescription(aboutDescription);
         return map(menuPageRepository.save(menuPage));
     }
 
-    public MenuPageResponse updateVideo(String video) {
-        MenuPage menuPage = menuPageRepository.find();
+    public MenuPageResponse updateVideo(String video,
+                                        Language language) {
+        MenuPage menuPage = menuPageRepository.find(language);
         menuPage.setVideo(video);
         return map(menuPageRepository.save(menuPage));
     }
 
-    public SystemMessage deleteVideo() {
+    public SystemMessage deleteVideo(Language language) {
         try {
-            MenuPage menuPage = menuPageRepository.find();
+            MenuPage menuPage = menuPageRepository.find(language);
             menuPage.setVideo(null);
             menuPageRepository.save(menuPage);
             return new SystemMessage("Video successfully remote");

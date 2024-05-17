@@ -1,5 +1,6 @@
 package com.example.neftchi.model;
 
+import com.example.neftchi.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,6 @@ public class MenuPage {
     @Column(length = 20000)
     private String aboutDescription;
     private String video;
+    @Enumerated(EnumType.STRING)
+    private Language language;
 }
