@@ -24,7 +24,9 @@ public class Appeal {
     private String phoneNumber;
     private String email;
     private String description;
-    private String file;
+    private String fileName;
+    @Lob
+    private byte[] data;
     @Enumerated(EnumType.STRING)
     private StatusAppeal status;
     private String appealAnswer;
