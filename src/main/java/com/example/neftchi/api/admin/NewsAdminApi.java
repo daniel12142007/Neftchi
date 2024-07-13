@@ -3,6 +3,7 @@ package com.example.neftchi.api.admin;
 import com.example.neftchi.dto.request.NewsRequest;
 import com.example.neftchi.dto.response.NewsAllResponse;
 import com.example.neftchi.dto.response.NewsOneResponse;
+import com.example.neftchi.model.enums.Language;
 import com.example.neftchi.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,41 +24,42 @@ public class NewsAdminApi {
         return newsService.save(request, categoryId);
     }
 
-    @PostMapping("add/head/image/{newsId}")
+    @PutMapping("add/head/image/{newsId}")
 
     public List<NewsAllResponse> addHead(@PathVariable Long newsId,
                                          @RequestParam String headImage) {
         return newsService.addHeadImage(newsId, headImage);
     }
 
-    @GetMapping("find/all")
-    public List<NewsAllResponse> findAll() {
-        return newsService.findAll();
+    @GetMapping("find/all/{language}")
+    public List<NewsAllResponse> findAll(@PathVariable Language language) {
+        return newsService.findAll(language);
     }
 
-    @GetMapping("find/sort/data/asc")
-    public List<NewsAllResponse> getSortDataAsc() {
-        return newsService.getNewsSortDataAsc();
+    @GetMapping("find/sort/data/asc/{language}")
+    public List<NewsAllResponse> getSortDataAsc(@PathVariable Language language) {
+        return newsService.getNewsSortDataAsc(language);
     }
 
-    @GetMapping("find/sort/data/desc")
-    public List<NewsAllResponse> getSortDataDesc() {
-        return newsService.getNewsSortDataDesc();
+    @GetMapping("find/sort/data/desc/{language}")
+    public List<NewsAllResponse> getSortDataDesc(@PathVariable Language language) {
+        return newsService.getNewsSortDataDesc(language);
     }
 
-    @GetMapping("find/sort/category/asc")
-    public List<NewsAllResponse> getSortCategoryAsc() {
-        return newsService.getNewsSortCategoryAsc();
+    @GetMapping("find/sort/category/asc/{language}")
+    public List<NewsAllResponse> getSortCategoryAsc(@PathVariable Language language) {
+        return newsService.getNewsSortCategoryAsc(language);
     }
 
-    @GetMapping("find/sort/category/desc")
-    public List<NewsAllResponse> getSortCategoryDesc() {
-        return newsService.getNewsSortCategoryDesc();
+    @GetMapping("find/sort/category/desc/{language}")
+    public List<NewsAllResponse> getSortCategoryDesc(@PathVariable Language language) {
+        return newsService.getNewsSortCategoryDesc(language);
     }
 
-    @GetMapping("get/{category}")
-    public List<NewsAllResponse> getNewsByCategory(@PathVariable String category) {
-        return newsService.getNewsByCategory(category);
+    @GetMapping("get/{category}/{language}")
+    public List<NewsAllResponse> getNewsByCategory(@PathVariable String category,
+                                                   @PathVariable Language language) {
+        return newsService.getNewsByCategory(category,language);
     }
 
     @GetMapping("find/by/{newsId}")
