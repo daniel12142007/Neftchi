@@ -3,6 +3,7 @@ package com.example.neftchi.repository;
 import com.example.neftchi.dto.response.NewsAllResponse;
 import com.example.neftchi.dto.response.NewsOneResponse;
 import com.example.neftchi.model.News;
+import com.example.neftchi.model.enums.Language;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,9 +28,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             n.category.category
             )
             from News n
+            where n.language = :language
             order by n.id
             """)
-    List<NewsAllResponse> findAllNewsAllResponse();
+    List<NewsAllResponse> findAllNewsAllResponse(@Param(value = "language")Language language);
 
     @Query("""
             select new com.example.neftchi.dto.response.NewsAllResponse(
@@ -44,9 +46,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             n.category.category
             )
             from News n
+            where n.language = :language
             order by n.dataCreated
             """)
-    List<NewsAllResponse> findAllResponseSortDataAsc();
+    List<NewsAllResponse> findAllResponseSortDataAsc(@Param(value = "language")Language language);
 
     @Query("""
             select new com.example.neftchi.dto.response.NewsAllResponse(
@@ -61,9 +64,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             n.category.category
             )
             from News n
+            where n.language = :language
             order by n.dataCreated desc
             """)
-    List<NewsAllResponse> findAllResponseSortDataDesc();
+    List<NewsAllResponse> findAllResponseSortDataDesc(@Param(value = "language")Language language);
 
     @Query("""
             select new com.example.neftchi.dto.response.NewsAllResponse(
@@ -78,9 +82,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             n.category.category
             )
             from News n
+            where n.language = :language
             order by n.category.queueNumber
             """)
-    List<NewsAllResponse> findAllResponseSortCategoryAsc();
+    List<NewsAllResponse> findAllResponseSortCategoryAsc(@Param(value = "language")Language language);
 
     @Query("""
             select new com.example.neftchi.dto.response.NewsAllResponse(
@@ -95,9 +100,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             n.category.category
             )
             from News n
+            where n.language = :language
             order by n.category.queueNumber desc
             """)
-    List<NewsAllResponse> findAllResponseSortCategoryDesc();
+    List<NewsAllResponse> findAllResponseSortCategoryDesc(@Param(value = "language")Language language);
 
     @Query("""
             select new com.example.neftchi.dto.response.NewsAllResponse(
@@ -113,9 +119,11 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             )
             from News n
             where n.category.category = :category
+            and n.language = :language
             order by n.id
             """)
-    List<NewsAllResponse> findAllResponseByCategory(@Param(value = "category") String category);
+    List<NewsAllResponse> findAllResponseByCategory(@Param(value = "category") String category,
+                                                    @Param(value = "language")Language language);
 
     @Query("""
             select new com.example.neftchi.dto.response.NewsOneResponse(

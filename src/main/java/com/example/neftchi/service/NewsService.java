@@ -6,6 +6,7 @@ import com.example.neftchi.dto.response.NewsOneResponse;
 import com.example.neftchi.exception.NotFound;
 import com.example.neftchi.model.Category;
 import com.example.neftchi.model.News;
+import com.example.neftchi.model.enums.Language;
 import com.example.neftchi.repository.CategoryRepository;
 import com.example.neftchi.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,8 @@ public class NewsService {
     private final NewsRepository newsRepository;
     private final CategoryRepository categoryRepository;
 
-    public List<NewsAllResponse> save(NewsRequest request, Long categoryId) {
+    public List<NewsAllResponse> save(NewsRequest request,
+                                      Long categoryId) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(NotFound::new);
         News news = News.builder()
                 .title(request.title())
@@ -34,7 +36,7 @@ public class NewsService {
                 .language(request.language())
                 .build();
         newsRepository.save(news);
-        return newsRepository.findAllNewsAllResponse();
+        return newsRepository.findAllNewsAllResponse(news.getLanguage());
     }
 
     public List<NewsAllResponse> addHeadImage(Long newsyId,
@@ -42,33 +44,34 @@ public class NewsService {
         News news = newsRepository.findById(newsyId).orElseThrow();
         news.setHeaderImage(headImage);
         newsRepository.save(news);
-        return findAll();
+        return findAll(news.getLanguage());
     }
 
-    public List<NewsAllResponse> findAll() {
-        return newsRepository.findAllNewsAllResponse();
+    public List<NewsAllResponse> findAll(Language language) {
+        return newsRepository.findAllNewsAllResponse(language);
     }
 
-    public List<NewsAllResponse> getNewsSortDataAsc() {
-        return newsRepository.findAllResponseSortDataAsc();
+    public List<NewsAllResponse> getNewsSortDataAsc(Language language) {
+        return newsRepository.findAllResponseSortDataAsc(language);
     }
 
-    public List<NewsAllResponse> getNewsSortDataDesc() {
-        return newsRepository.findAllResponseSortDataDesc();
+    public List<NewsAllResponse> getNewsSortDataDesc(Language language) {
+        return newsRepository.findAllResponseSortDataDesc(language);
     }
 
-    public List<NewsAllResponse> getNewsSortCategoryAsc() {
-        return newsRepository.findAllResponseSortCategoryAsc();
+    public List<NewsAllResponse> getNewsSortCategoryAsc(Language language) {
+        return newsRepository.findAllResponseSortCategoryAsc(language);
     }
 
-    public List<NewsAllResponse> getNewsSortCategoryDesc() {
-        return newsRepository.findAllResponseSortCategoryDesc();
+    public List<NewsAllResponse> getNewsSortCategoryDesc(Language language) {
+        return newsRepository.findAllResponseSortCategoryDesc(language);
     }
 
-    public List<NewsAllResponse> getNewsByCategory(String category) {
+    public List<NewsAllResponse> getNewsByCategory(String category,
+                                                   Language language) {
         if (categoryRepository.findByCategory(category) == null)
             throw new NullPointerException("There is no such category:" + category);
-        return newsRepository.findAllResponseByCategory(category);
+        return newsRepository.findAllResponseByCategory(category, language);
     }
 
     public NewsOneResponse findById(Long newsId) {
