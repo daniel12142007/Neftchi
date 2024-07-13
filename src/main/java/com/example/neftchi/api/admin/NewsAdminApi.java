@@ -24,7 +24,7 @@ public class NewsAdminApi {
         return newsService.save(request, categoryId);
     }
 
-    @PostMapping("add/head/image/{newsId}")
+    @PutMapping("add/head/image/{newsId}")
 
     public List<NewsAllResponse> addHead(@PathVariable Long newsId,
                                          @RequestParam String headImage) {
