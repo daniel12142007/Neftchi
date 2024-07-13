@@ -9,9 +9,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/menu/page/admin")
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyAuthority('ADMIN')")
+@RequestMapping("api/v1/menu/page/admin")
 public class MenuPageAdminApi {
     private final MenuPageService menuPageService;
 

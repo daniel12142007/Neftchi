@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/partners/admin")
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyAuthority('ADMIN')")
+@RequestMapping("api/v1/partners/admin")
 public class PartnersAdminApi {
     private final PartnersService partnersService;
 

@@ -3,12 +3,14 @@ package com.example.neftchi.api.admin;
 import com.example.neftchi.dto.response.CategoryResponse;
 import com.example.neftchi.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 @RequestMapping("api/v1/category/admin")
 public class CategoryAdminApi {
     private final CategoryService categoryService;
