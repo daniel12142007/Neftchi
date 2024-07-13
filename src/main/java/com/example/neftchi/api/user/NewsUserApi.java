@@ -1,34 +1,21 @@
-package com.example.neftchi.api.admin;
+package com.example.neftchi.api.user;
 
-import com.example.neftchi.dto.request.NewsRequest;
 import com.example.neftchi.dto.response.NewsAllResponse;
 import com.example.neftchi.dto.response.NewsOneResponse;
 import com.example.neftchi.service.NewsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('ADMIN')")
-@RequestMapping("api/v1/news/admin")
-public class NewsAdminApi {
+@RequestMapping("api/v1/news/user")
+public class NewsUserApi {
     private final NewsService newsService;
-
-    @PostMapping("save/{categoryId}")
-    public List<NewsAllResponse> save(@PathVariable Long categoryId,
-                                      @RequestBody NewsRequest request) {
-        return newsService.save(request, categoryId);
-    }
-
-    @PostMapping("add/head/image/{newsId}")
-
-    public List<NewsAllResponse> addHead(@PathVariable Long newsId,
-                                         @RequestParam String headImage) {
-        return newsService.addHeadImage(newsId, headImage);
-    }
 
     @GetMapping("find/all")
     public List<NewsAllResponse> findAll() {
@@ -64,5 +51,4 @@ public class NewsAdminApi {
     public NewsOneResponse findById(@PathVariable Long newsId) {
         return newsService.findById(newsId);
     }
-
 }
