@@ -55,6 +55,8 @@ public class CategoryService {
 
     public List<CategoryResponse> save(String category,
                                        String color) {
+        if (categoryRepository.findByCategory(category) != null)
+            throw new RuntimeException("such a category already exists");
         Category category1 = Category.builder()
                 .category(category)
                 .color(color)
