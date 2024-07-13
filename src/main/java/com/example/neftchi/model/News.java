@@ -20,6 +20,7 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(length = 800)
     private String description;
     private String headerImage;
     private String video;

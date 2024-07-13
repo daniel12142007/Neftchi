@@ -28,4 +28,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("select c from Category c where c.queueNumber = :queueNumber")
     Category findByQueueNumber(@Param(value = "queueNumber") int queueNumber);
+
+    Category findByCategory(String category);
 }
